@@ -1,10 +1,12 @@
 ﻿using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 using OpenAI;
 using OpenAI.Chat;
 using System.ClientModel;
+using System.ClientModel.Primitives;
 
-namespace csFirstAgentHasLogging;
+namespace csFirstAgent;
 
 internal class Program
 {
@@ -14,11 +16,29 @@ internal class Program
         var deploymentName = "microsoft/phi-4";
         var Github_Token = Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? "gpt-4o-mini";
 
+        var loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+            builder.SetMinimumLevel(LogLevel.Trace);
+        });
+
+        var options = new OpenAIClientOptions
+        {
+            Endpoint = new Uri(endpoint),
+            ClientLoggingOptions = new ClientLoggingOptions
+            {
+                LoggerFactory = loggerFactory,
+                EnableLogging = true,
+                EnableMessageLogging = true,
+                EnableMessageContentLogging = true
+            }
+        };
+
         IChatClient chatClient =
             new ChatClient(
                     deploymentName,
                     new ApiKeyCredential(Github_Token!),
-                    new OpenAIClientOptions { Endpoint = new Uri(endpoint) })
+                    options)
                 .AsIChatClient();
 
         AIAgent writer = new ChatClientAgent(
