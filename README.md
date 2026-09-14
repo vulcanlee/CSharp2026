@@ -3,8 +3,8 @@
 |專案名稱|專案說明|備註|
 |-|-|-|
 |csFirstAgent|如何用 Azure OpenAI 的 gpt-5.6-luna 聊天模型建立一個簡單 AI 代理，並產生一篇與鵝有關的詩。||
+|csStreamAgent|改用 RunStreamingAsync 串流輸出回應，文字逐段浮現，並統計首字延遲、總耗時與片段數，可與 csFirstAgent 直接對照。||
 |csFirstAgentHasLogging|建立一個 AIAgent，使其成為 AI 代理應用，且具有日誌輸出功能||
-||||
 ||||
 ||||
 ||||
