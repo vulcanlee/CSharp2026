@@ -4,31 +4,33 @@ using OpenAI;
 using OpenAI.Chat;
 using System.ClientModel;
 
-namespace csFirstAgentHasLogging;
+namespace csFirstAgent;
 
 internal class Program
 {
     static async Task Main(string[] args)
     {
-        var endpoint = "https://models.github.ai/inference";
-        var deploymentName = "microsoft/phi-4";
-        var Github_Token = Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? "gpt-4o-mini";
+        var apiKey = Environment.GetEnvironmentVariable("AzureOpenAI_Key");
+        var endpoint = Environment.GetEnvironmentVariable("AzureOpenAI_Endpoint");
+        var model = "gpt-5.6-luna";
 
         IChatClient chatClient =
             new ChatClient(
-                    deploymentName,
-                    new ApiKeyCredential(Github_Token!),
+                    model,
+                    new ApiKeyCredential(apiKey!),
                     new OpenAIClientOptions { Endpoint = new Uri(endpoint) })
                 .AsIChatClient();
 
-        AIAgent writer = new ChatClientAgent(
-            chatClient,
-            "詩人",
-            "創作引人入勝、富有創意的詩。.",
-            null);
+        AIAgent agent = new ChatClientAgent(
+            chatClient, // 聊天用戶端
+            "詩人", // 代理名稱
+            "創作引人入勝、富有創意的詩。.", // 系統提示詞
+            null); // 其他設定
 
-        var response = await writer.RunAsync("寫一個關於鵝的詩。");
+        Console.WriteLine($"{DateTime.Now} 開始呼叫 LLM API / 使用的模型: {model}");
+        var response = await agent.RunAsync("寫一個關於鵝的詩。");
 
         Console.WriteLine(response.Text);
+        Console.WriteLine($"{DateTime.Now} 完成呼叫 LLM API / 使用的模型: {model}");
     }
 }

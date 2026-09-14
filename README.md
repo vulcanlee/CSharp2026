@@ -2,7 +2,7 @@
 
 |專案名稱|專案說明|備註|
 |-|-|-|
-|csFirstAgent|如何用 GitHub Models 的 phi-4 聊天模型建立一個簡單 AI 代理，並產生一篇指定主題的短篇故事。||
+|csFirstAgent|如何用 Azure OpenAI 的 gpt-5.6-luna 聊天模型建立一個簡單 AI 代理，並產生一篇與鵝有關的詩。||
 |csFirstAgentHasLogging|建立一個 AIAgent，使其成為 AI 代理應用，且具有日誌輸出功能||
 ||||
 ||||
