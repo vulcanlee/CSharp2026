@@ -52,9 +52,6 @@ internal class Program
     {
         Header("執行 1 / 不傳 session —— 代理會失憶");
 
-        // RunAsync 的 session 參數留空時，框架會「每次都幫你開一個新的 session」。
-        // 所以下面兩次呼叫其實是兩段毫不相干的對話，第二輪當然答不出來。
-        // csFirstAgent 就是這樣寫的，這也是它沒有記憶的原因。
         Say("你", Turn1);
         var answer1 = await agent.RunAsync(Turn1);
         Say("助理", answer1.Text);
@@ -71,9 +68,6 @@ internal class Program
     {
         Header("執行 2 / 共用同一個 session —— 代理記得");
 
-        // 關鍵就這一行：建立一個 session，兩輪共用。
-        // 每次 RunAsync 都會把這一輪的問與答寫回 session，所以下一輪看得到前面說過的話。
-        // 注意 CreateSessionAsync 只有非同步版本，要 await。
         var session = await agent.CreateSessionAsync();
 
         Say("你", Turn1);
@@ -84,9 +78,6 @@ internal class Program
         var answer2 = await agent.RunAsync(Turn2, session);
         Say("助理", answer2.Text);
 
-        // 記憶到底存在哪裡？把 session 裡的歷史掏出來看。
-        // 這個歷史是放在記憶體的，程式結束就沒了；要跨行程接續同一段對話，
-        // 得改用 session.Serialize() 與 agent.DeserializeSessionAsync()。
         Console.WriteLine();
         Console.WriteLine("【session 裡實際存放的對話歷史】");
 
@@ -103,9 +94,6 @@ internal class Program
         }
     }
 
-    // ────────────────────────────────────────────────────────────────
-    // 輸出小工具
-    // ────────────────────────────────────────────────────────────────
     private static void Header(string title)
     {
         Console.WriteLine();
