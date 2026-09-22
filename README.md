@@ -4,8 +4,8 @@
 |-|-|-|
 |csFirstAgent|MFA001 - 如何用 Azure OpenAI 的 gpt-5.6-luna 聊天模型建立一個簡單 AI 代理，並產生一篇與鵝有關的詩。||
 |csStreamAgent|MFA002 - 改用 RunStreamingAsync 串流輸出回應，文字逐段浮現，並統計首字延遲、總耗時與片段數，可與 csFirstAgent 直接對照。||
-|csResponseTokenAgent|從 LLM 回應中取得 Token 統計：取 OpenAI 原生 SDK 的 ChatTokenUsage，列出輸入／輸出／推論／快取等 token 明細，並附回應中繼資料與台幣費用估算，非串流與串流各示範一次。||
-||||
+|csResponseTokenAgent|MFA003 - 從 LLM 回應中取得 Token 統計：取 OpenAI 原生 SDK 的 ChatTokenUsage，列出輸入／輸出／推論／快取等 token 明細，並附回應中繼資料與台幣費用估算，非串流與串流各示範一次。||
+|csLoggingAgent|MFA004 - 用 MAF 原生的 AIAgentBuilder.UseLogging() 在「代理層」掛上日誌，既有程式碼一行都不必改就能看到送進代理的訊息、Options、Metadata 與完整回應 JSON；並說明日誌等級 Debug 與 Trace 的差別。||
 ||||
 ||||
 ||||
