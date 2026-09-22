@@ -6,7 +6,7 @@
 |csStreamAgent|MFA002 - 改用 RunStreamingAsync 串流輸出回應，文字逐段浮現，並統計首字延遲、總耗時與片段數，可與 csFirstAgent 直接對照。||
 |csResponseTokenAgent|MFA003 - 從 LLM 回應中取得 Token 統計：取 OpenAI 原生 SDK 的 ChatTokenUsage，列出輸入／輸出／推論／快取等 token 明細，並附回應中繼資料與台幣費用估算，非串流與串流各示範一次。||
 |csLoggingAgent|MFA004 - 用 MAF 原生的 AIAgentBuilder.UseLogging() 在「代理層」掛上日誌，既有程式碼一行都不必改就能看到送進代理的訊息、Options、Metadata 與完整回應 JSON；並說明日誌等級 Debug 與 Trace 的差別。||
-||||
+|csHttpHandlerAgent|MFA005 - 自訂 DelegatingHandler 搭配 HttpClientPipelineTransport，在 HTTP 傳輸層攔下 MAF 代理真正送出的請求與回應：印出原始 JSON、狀態碼與耗時，並示範金鑰遮蔽與「讀取回應內容會破壞串流」的處理。||
 ||||
 ||||
 ||||
