@@ -12,8 +12,8 @@
 |csPersistSessionAgent|MFA008 - Session 序列化：用 agent.SerializeSessionAsync() 把 AgentSession 存成 JSON 檔，關掉程式再開時用 agent.DeserializeSessionAsync() 還原，讓睡前故事從昨晚的斷點接著講；同時示範不載入存檔的對照組會失憶，並印出存檔大小與 JSON 節錄。||
 |csStructuredOutputAgent|MFA009 - 結構化輸出（JSON）：用 `agent.RunAsync<ShoppingList>()` 把食譜轉成五類食材的購物清單，同時顯示模型回傳的 JSON 與 C# 強型別結果。||
 |csFunctionCallingAgent|MFA010 - 函式工具呼叫（Function Calling）：用 `AIFunctionFactory.Create()` 把查天氣的 C# 函式（串接 Open-Meteo 真實預報）交給代理，問「明天要穿什麼」時由模型自己決定要不要呼叫、呼叫幾次與參數怎麼填；三題對照分別示範呼叫 1 次、不呼叫與呼叫 2 次。||
-||||
-||||
+|csToolApprovalAgent|MFA011 - 工具核准（代理層的人機互動）：資料庫維運助理把 SELECT／UPDATE／DELETE 三個工具包成 `ApprovalRequiredAIFunction`，再用 `UseToolApproval()` 的 `AutoApprovalRules` 依工具名稱分流：`ExecuteSelect` 自動放行，UPDATE／DELETE 一律跳出 y/n 人工核准，拒絕時可輸入理由回傳給模型；並示範工具內再檢查 SQL 開頭，防止把 DELETE 塞進查詢工具。||
+|csRetryMiddlewareAgent|MFA012 - 自己寫中介層（Middleware）：用 `AsBuilder().Use(runFunc: ...)` 掛上自訂的 `RetryIfTooLong`，攔下代理回應檢查字數，超過 100 字上限就在同一個 session 追問「請精簡後重答」一次，重答後仍超標則印出警告照樣回傳；同一個業務方法 `AskAsync()` 分別傳入原始代理與套了中介層的代理做對照，業務程式碼一行都不用改。||
 ||||
 ||||
 ||||
