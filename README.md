@@ -11,7 +11,7 @@
 |csWorkflowAgent|MFA007 - 用 MAF 的 Workflow 把多個代理接成一張圖：大綱 → 三個寫手平行撰稿 → 扇入組稿 → 審稿，再用帶條件的邊做「過關就發布、沒過就退回重改」的回圈；一次示範序列／扇出／扇入／條件路由與回圈五種結構，並印出 Mermaid 拓撲圖。||
 |csPersistSessionAgent|MFA008 - Session 序列化：用 agent.SerializeSessionAsync() 把 AgentSession 存成 JSON 檔，關掉程式再開時用 agent.DeserializeSessionAsync() 還原，讓睡前故事從昨晚的斷點接著講；同時示範不載入存檔的對照組會失憶，並印出存檔大小與 JSON 節錄。||
 |csStructuredOutputAgent|MFA009 - 結構化輸出（JSON）：用 `agent.RunAsync<ShoppingList>()` 把食譜轉成五類食材的購物清單，同時顯示模型回傳的 JSON 與 C# 強型別結果。||
-||||
+|csFunctionCallingAgent|MFA010 - 函式工具呼叫（Function Calling）：用 `AIFunctionFactory.Create()` 把查天氣的 C# 函式（串接 Open-Meteo 真實預報）交給代理，問「明天要穿什麼」時由模型自己決定要不要呼叫、呼叫幾次與參數怎麼填；三題對照分別示範呼叫 1 次、不呼叫與呼叫 2 次。||
 ||||
 ||||
 ||||
