@@ -14,7 +14,7 @@
 |csFunctionCallingAgent|MFA010 - 函式工具呼叫（Function Calling）：用 `AIFunctionFactory.Create()` 把查天氣的 C# 函式（串接 Open-Meteo 真實預報）交給代理，問「明天要穿什麼」時由模型自己決定要不要呼叫、呼叫幾次與參數怎麼填；三題對照分別示範呼叫 1 次、不呼叫與呼叫 2 次。||
 |csToolApprovalAgent|MFA011 - 工具核准（代理層的人機互動）：資料庫維運助理把 SELECT／UPDATE／DELETE 三個工具包成 `ApprovalRequiredAIFunction`，再用 `UseToolApproval()` 的 `AutoApprovalRules` 依工具名稱分流：`ExecuteSelect` 自動放行，UPDATE／DELETE 一律跳出 y/n 人工核准，拒絕時可輸入理由回傳給模型；並示範工具內再檢查 SQL 開頭，防止把 DELETE 塞進查詢工具。||
 |csRetryMiddlewareAgent|MFA012 - 自己寫中介層（Middleware）：用 `AsBuilder().Use(runFunc: ...)` 掛上自訂的 `RetryIfTooLong`，攔下代理回應檢查字數，超過 100 字上限就在同一個 session 追問「請精簡後重答」一次，重答後仍超標則印出警告照樣回傳；同一個業務方法 `AskAsync()` 分別傳入原始代理與套了中介層的代理做對照，業務程式碼一行都不用改。||
-||||
+|csCompactionAgent|MFA013 - 對話壓縮：拿一篇六段的長篇訪談稿逐段追問，用 `CompactionProvider` 分別掛上 `SlidingWindowCompactionStrategy`（只留最近 2 個回合）與 `SummarizationCompactionStrategy`（舊回合交給 LLM 濃縮成摘要），和不壓縮的對照組比較每回合輸入 token 與最後「第一段細節題／全篇綜合題」的答題結果；並示範自訂摘要提示詞，避免滾動摘要遺失舊重點或長到省不了 token。||
 ||||
 ||||
 ||||
