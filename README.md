@@ -16,7 +16,7 @@
 |csRetryMiddlewareAgent|MFA012 - 自己寫中介層（Middleware）：用 `AsBuilder().Use(runFunc: ...)` 掛上自訂的 `RetryIfTooLong`，攔下代理回應檢查字數，超過 100 字上限就在同一個 session 追問「請精簡後重答」一次，重答後仍超標則印出警告照樣回傳；同一個業務方法 `AskAsync()` 分別傳入原始代理與套了中介層的代理做對照，業務程式碼一行都不用改。||
 |csCompactionAgent|MFA013 - 對話壓縮：拿一篇六段的長篇訪談稿逐段追問，用 `CompactionProvider` 分別掛上 `SlidingWindowCompactionStrategy`（只留最近 2 個回合）與 `SummarizationCompactionStrategy`（舊回合交給 LLM 濃縮成摘要），和不壓縮的對照組比較每回合輸入 token 與最後「第一段細節題／全篇綜合題」的答題結果；並示範自訂摘要提示詞，避免滾動摘要遺失舊重點或長到省不了 token。||
 |csMultimodalAgent|MFA014 - 多模態輸入（圖片）：在同一則 `ChatMessage` 裡放 `TextContent` 加上 `DataContent`（讀本機冰箱照片）或 `UriContent`（網路圖片網址），請代理辨識食材，再用 MFA009 的 `RunAsync<FridgeReport>()` 結構化輸出成「現有食材＋建議菜色」；並實測純文字、小圖 high、大圖 low／high 的輸入 token，說明圖片 token 取決於像素尺寸與 detail，而不是檔案大小。||
-||||
+|csResponsesAgent|MFA015 - Responses API 代理：改用 Microsoft.Agents.AI.OpenAI 的 `ResponsesClient.AsAIAgent()` 以 OpenAI Responses API 建立代理，透過 `ChatOptions.Reasoning` 設定 reasoning effort（Low／High）與推論摘要，對同一道「四個盒子標籤全貼錯」邏輯題印出 `TextReasoningContent` 推論摘要與推論 token；再示範服務端保存對話（第二輪只送 1 則訊息＋上一輪 response id），與 MFA003 的 Chat Completions（每輪重送整段歷史、沒有推論摘要）對照送出訊息數與輸入 token。||
 ||||
 ||||
 ||||
