@@ -18,7 +18,7 @@
 |csMultimodalAgent|MFA014 - 多模態輸入（圖片）：在同一則 `ChatMessage` 裡放 `TextContent` 加上 `DataContent`（讀本機冰箱照片）或 `UriContent`（網路圖片網址），請代理辨識食材，再用 MFA009 的 `RunAsync<FridgeReport>()` 結構化輸出成「現有食材＋建議菜色」；並實測純文字、小圖 high、大圖 low／high 的輸入 token，說明圖片 token 取決於像素尺寸與 detail，而不是檔案大小。||
 |csResponsesAgent|MFA015 - Responses API 代理：改用 Microsoft.Agents.AI.OpenAI 的 `ResponsesClient.AsAIAgent()` 以 OpenAI Responses API 建立代理，透過 `ChatOptions.Reasoning` 設定 reasoning effort（Low／High）與推論摘要，對同一道「四個盒子標籤全貼錯」邏輯題印出 `TextReasoningContent` 推論摘要與推論 token；再示範服務端保存對話（第二輪只送 1 則訊息＋上一輪 response id），與 MFA003 的 Chat Completions（每輪重送整段歷史、沒有推論摘要）對照送出訊息數與輸入 token。||
 |csAgentSkillsAgent|MFA016 - Agent Skills 技能包：用 `AgentSkillsProvider` 替代理加上「寫週報」技能，分別示範三種來源：資料夾內的 `SKILL.md` 與範本檔（File）、程式碼內建的 `AgentInlineSkill`（Inline，含動態資源與腳本）、繼承 `AgentClassSkill<T>` 並用 `[AgentSkillResource]`／`[AgentSkillScript]` 標註（Class）；以觀察用中介層印出代理平時只看到技能摘要，寫週報時才依序呼叫 `load_skill`／`read_skill_resource`／`run_skill_script` 載入完整內容與資源，並與「完整內容全塞進 instructions」的對照組比較輸入 token。||
-||||
+|csThreeOpenAIApis|三種 OpenAI API 的差異：不用任何 SDK，只用 `HttpClient` 對 `/v1/completions`、`/v1/chat/completions`、`/v1/responses` 送出原始 JSON，以「線上商店客服助理」情境依序示範單輪問答、多輪對話（自己拼逐字稿／每輪重送 messages／`store`＋`previous_response_id`）、結構化輸出（提示詞要 JSON／`response_format.json_schema`／`text.format`）與工具呼叫完整迴圈（regex 抓 CALL／`tool_calls`→`role=tool`／`function_call`→`function_call_output`），每次呼叫都印出請求與回應 JSON；並實測 gpt-6.1-sol 不支援 `/v1/completions`、在 chat/completions 上無法同時使用推論與工具，最後印出對照表與「什麼情況選哪一種」的建議。||
 ||||
 ||||
 ||||
